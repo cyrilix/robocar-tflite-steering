@@ -1,7 +1,7 @@
 FROM python:3.7-alpine
 
 
-WORKDIR /src
+WORKDIR /tmp
 
 RUN wget https://dl.google.com/coral/python/tflite_runtime-1.14.0-cp37-cp37m-linux_$(uname -m).whl && \
     pip3 install tflite_runtime-1.14.0-cp37-cp37m-linux_$(uname -m).whl && \
