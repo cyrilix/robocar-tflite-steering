@@ -1,12 +1,11 @@
-FROM python:3.7-buster
+FROM python:3.7-alpine
 
 
 WORKDIR /src
 
 RUN wget https://dl.google.com/coral/python/tflite_runtime-1.14.0-cp37-cp37m-linux_$(uname -m).whl && \
     pip3 install tflite_runtime-1.14.0-cp37-cp37m-linux_$(uname -m).whl && \
-    apt-get update &&\
-    apt-get install -y python3-numpy
+    apk add -U py3-numpy py3-pillow
 
 ADD . .
 RUN python3 setup.py install && rm -rf /src
