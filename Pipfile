@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+robocar-keras-steering = {editable = true,path = ".",extras = []}
+importlib = "*"
+keras = "*"
+docopt = "*"
+mqtt = "*"
+paho-mqtt = "*"
+
+[dev-packages]
+robocar-keras-steering = {editable = true,path = ".",extras = ["tests"]}
+
+[requires]
+python_version = "3.7"
