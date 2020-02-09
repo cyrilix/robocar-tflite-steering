@@ -1,16 +1,12 @@
-FROM cyrilix/numpy
-
-WORKDIR /tmp
-
-RUN wget https://dl.google.com/coral/python/tflite_runtime-1.14.0-cp37-cp37m-linux_$(uname -m).whl && \
-    pip3 install tflite_runtime-1.14.0-cp37-cp37m-linux_$(uname -m).whl && \
-    apt-get update && apt-get install -y python3-pillow && \
-    pip3 install numpy
+FROM cyrilix/robocar-python-base
 
 ADD . .
 RUN python3 setup.py install && rm -rf /src
 
+ENV PYTHON_EGG_CACHE=/tmp/cache
+
 WORKDIR /tmp
 USER 1234
+RUN mkdir -p ${PYTHON_EGG_CACHE}
 
 ENTRYPOINT ["/usr/local/bin/rc-tflite-steering"]

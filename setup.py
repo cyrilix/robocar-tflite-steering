@@ -27,9 +27,10 @@ setup(name='robocar-tflite-steering',
           ],
       },
       setup_requires=['pytest-runner'],
-      install_requires=['importlib',
+      install_requires=['pillow',
                         'docopt',
-                        'paho-mqtt'
+                        'paho-mqtt',
+                        'robocar_protobuf'
                         ],
       tests_require=tests_require,
       extras_require={
@@ -62,4 +63,7 @@ setup(name='robocar-tflite-steering',
       keywords='selfdriving cars drive',
 
       packages=find_packages(exclude=(['tests', 'env'])),
+      dependency_links=[
+          'git+https://github.com/cyrilix/robocar-protobuf.git#egg=robocar_protobuf-0.1'
+      ],
       )
