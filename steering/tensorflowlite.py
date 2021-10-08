@@ -12,12 +12,9 @@ Steering = namedtuple("Steering", "value confidence")
 
 class SteeringPart:
 
-    def __init__(self, model_path: Path):
+    def __init__(self, intrp : tflite.Interpreter):
         logger.info("init steering part")
-        logger.info('load model' + str(model_path))
-        self.interpreter = tflite.Interpreter(model_path=str(model_path))
-        logger.info('model loaded')
-        self.interpreter.allocate_tensors()
+        self.interpreter = intrp
 
     def get_steering(self, img: np.array) -> Steering:
         # Get input and output tensors.
@@ -40,3 +37,19 @@ def linear_unbin(arr) -> Steering:
     b = np.argmax(arr)
     a = float(b) * (2. / 14.) - 1.
     return Steering(a, arr[0][b])
+
+
+def configure_interpreter(model_path: str, use_edge_tpu: bool) -> tflite.Interpreter:
+    logger.info("init steering part")
+    logger.info('load model' + model_path)
+
+    if use_edge_tpu:
+        logger.info("configure tflite interpreter with edgeTpu")
+        interpreter = tflite.Interpreter(model_path,
+                                         experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
+    else:
+        interpreter = tflite.Interpreter(model_path=model_path)
+
+    logger.info('model loaded')
+    interpreter.allocate_tensors()
+    return interpreter

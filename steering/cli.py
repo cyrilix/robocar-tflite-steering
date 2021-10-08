@@ -27,7 +27,7 @@ from docopt import docopt
 import paho.mqtt.client as mqtt
 from events import events_pb2
 
-from steering.tensorflowlite import SteeringPart
+from steering.tensorflowlite import SteeringPart, configure_interpreter
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -112,7 +112,8 @@ def execute_from_command_line():
     logging.basicConfig(level=logging.INFO)
 
     args = docopt(__doc__)
-    steering_part = SteeringPart(get_default_value(args["--tf-model-path"], "TF_MODEL_PATH", ""))
+    model_path = get_default_value(args["--tf-model-path"], "TF_MODEL_PATH", "")
+    steering_part = SteeringPart(configure_interpreter(model_path, True))
 
     queue = Queue(maxsize=1)
     client = init_mqtt_client(queue=queue,

@@ -30,7 +30,9 @@ setup(name='robocar-tflite-steering',
       install_requires=['pillow',
                         'docopt',
                         'paho-mqtt',
-                        'robocar_protobuf'
+                        'numpy',
+                        'pycoral',
+                        'protobuf'
                         ],
       tests_require=tests_require,
       extras_require={
@@ -56,14 +58,9 @@ setup(name='robocar-tflite-steering',
           # Specify the Python versions you support here. In particular, ensure
           # that you indicate whether you support Python 2, Python 3 or both.
 
-          'Programming Language :: Python :: 3.4',
-          'Programming Language :: Python :: 3.5',
-          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.7',
       ],
       keywords='selfdriving cars drive',
 
       packages=find_packages(exclude=(['tests', 'env'])),
-      dependency_links=[
-          'git+https://github.com/cyrilix/robocar-protobuf.git#egg=robocar_protobuf-0.1'
-      ],
       )

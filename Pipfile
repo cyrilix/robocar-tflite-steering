@@ -5,11 +5,15 @@ name = "pypi"
 
 [packages]
 robocar-keras-steering = {editable = true,path = ".",extras = []}
+robocar_protobuf = { git = 'https://github.com/cyrilix/robocar-protobuf.git', ref = 'v1.0.0', editable = true}
 importlib = "*"
-keras = "*"
+#keras = "*"
 docopt = "*"
 mqtt = "*"
 paho-mqtt = "*"
+pyyaml = "==5.3"
+pycoral = "*"
+numpy ="*"
 
 [dev-packages]
 robocar-keras-steering = {editable = true,path = ".",extras = ["tests"]}
