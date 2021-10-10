@@ -1,4 +1,3 @@
-#FROM cyrilix/robocar-python-base
 FROM docker.io/library/python:3.9-slim
 
 # Configure piwheels repo to use pre-compiled numpy wheels for arm
@@ -22,11 +21,11 @@ ADD setup.cfg .
 ADD setup.py .
 
 
-RUN python3 setup.py install && rm -rf /src
 ENV PYTHON_EGG_CACHE=/tmp/cache
+RUN python3 setup.py install && rm -rf /src
+#RUN mkdir -p ${PYTHON_EGG_CACHE}
 
 WORKDIR /tmp
 USER 1234
-RUN mkdir -p ${PYTHON_EGG_CACHE}
 
 ENTRYPOINT ["/usr/local/bin/rc-tflite-steering"]
